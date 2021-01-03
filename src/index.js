@@ -1,17 +1,67 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+class Index extends React.Component {
+    state = {cellinput: " ", todos: [], comment: ""}
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+    componentDidMount() {
+    }
+
+
+    handleChangeText = (e) => {
+        this.setState({cellinput: e.target.value})
+    }
+    handleChangeSubmit = (e) => {
+        if (this.state.cellinput !== "") {
+            this.setState({
+                cellinput: "",
+                todos: [...this.state.todos,
+                    {key: this.state.todos.length, text: this.state.cellinput}]
+            })
+        }
+    }
+    checkTodo = () =>{
+        console.log(this)
+        this.setState(
+            {todos:[]}
+        )
+    }
+
+    render() {
+
+        return (
+            <div>
+                <h4>ToDo List!</h4>
+                <input type="text" onChange={this.handleChangeText} value={this.state.cellinput}/>
+                <div>
+                    <input type="submit" value="Agregar" onClick={this.handleChangeSubmit}/>
+                </div>
+                {this.state.todos.map(
+                     (val) => {
+                        return (
+                            <div key={val.key.toString()}>
+                                <Todos text={val.text} checked={false} checkTodo = {this.checkTodo}/>
+                            </div>
+                        );
+                    }
+                )}
+            </div>)
+
+    }
+}
+
+class Todos extends React.Component {
+    state = {text: this.props.text, checked: this.props.checked}
+
+    render() {
+        return (
+            <div>
+                <input type="checkbox" onClick={this.props.checkTodo}/>
+                {this.state.text}
+            </div>
+        )
+    }
+}
+
+
+ReactDOM.render(<Index/>, document.querySelector("#root"));
