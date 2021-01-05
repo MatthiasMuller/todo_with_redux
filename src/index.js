@@ -2,12 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import axios from 'axios';
 
+import "./index.css"
+
 class Index extends React.Component {
-    state = {cellinput: "", todos: [], comment: "Ingresar Todo:", keyvalue: 1}
-
-    componentDidMount() {
-
-    }
+    state = {cellinput: "", todos: [], comment: "Ingresar Todo:", keyvalue: 0}
 
     async requestTrumpData() {
         let data = await axios.get("https://api.tronalddump.io/random/quote")
@@ -20,6 +18,9 @@ class Index extends React.Component {
     }
     handleChangeSubmit = async (e) => {
         e.preventDefault();
+        this.setState(
+            {comment: "Buscando..."}
+        )
         let comentary = await this.requestTrumpData()
         if (this.state.cellinput !== "") {
             this.setState({
@@ -29,6 +30,10 @@ class Index extends React.Component {
                 keyvalue: this.state.keyvalue + 1
                 , comment: comentary
             })
+        } else {
+            this.setState(
+                {comment: "No se puede agregar un Todo sin texto!"}
+            )
         }
     }
     removeTodo = (e) => {
@@ -41,8 +46,8 @@ class Index extends React.Component {
     render() {
         return (
             <div>
-                <h4>ToDos List!</h4>
-                <h6>{this.state.comment}</h6>
+                <h1 className="title">ToDos List!</h1>
+                <h3 key={this.state.comment} className="quotes">{this.state.comment}</h3>
                 <form action=" " onSubmit={this.handleChangeSubmit}>
                     <input type="text" onChange={this.handleChangeText} value={this.state.cellinput}/>
                     <div>
@@ -67,9 +72,13 @@ class Todos extends React.Component {
     render() {
         return (
             <div key={this.props.id}>
-                <input type="checkbox" value={this.props.id}/>
+                <div className="ui toggle checkbox">
+                    <input type="checkbox" value={this.props.id} name="public"/>
+                    <label> </label>
+                </div>
                 {this.props.text}
-                <input type="checkbox" onClick={this.props.removeTodo} value={this.props.id}/>
+                <input type="checkbox" onClick={this.props.removeTodo} value={this.props.id}
+                       className="checkbox-right"/>
             </div>
         )
     }
@@ -77,3 +86,4 @@ class Todos extends React.Component {
 
 
 ReactDOM.render(<Index/>, document.querySelector("#root"));
+

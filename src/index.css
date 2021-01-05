@@ -1,0 +1,30 @@
+.theme{
+    background: #fff9c4;
+}
+.title{
+    background: red;
+}
+
+
+.checkbox-right{
+    margin-left: 100px;
+}
+
+.quotes{
+    height: 50px;
+    animation-name: move;
+    animation-duration: 10s;
+    /* Tambien podemos escribirlo mas rapido */
+    /*Iteration count es la veces que se repitira */
+    animation: move 1s ;
+}
+
+@keyframes move {
+    0% {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    100% {
+        opacity: 100;
+    }
+}
