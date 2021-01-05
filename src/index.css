@@ -1,6 +1,9 @@
 .theme{
     background: #fff9c4;
 }
+.theme.hover {
+    background: #b5b49e;
+}
 .title{
     background: red;
 }
@@ -12,11 +15,17 @@
 
 .quotes{
     height: 50px;
-    animation-name: move;
-    animation-duration: 10s;
-    /* Tambien podemos escribirlo mas rapido */
-    /*Iteration count es la veces que se repitira */
     animation: move 1s ;
+    animation-iteration-count: 1;
+}
+.todo-text:hover{
+    animation: select 1s ;
+}
+
+@keyframes select {
+    100% {
+        transform: translateX(10px);
+    }
 }
 
 @keyframes move {

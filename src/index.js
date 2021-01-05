@@ -10,7 +10,6 @@ class Index extends React.Component {
     async requestTrumpData() {
         let data = await axios.get("https://api.tronalddump.io/random/quote")
         return data.data.value
-        siii
     }
 
 
@@ -22,8 +21,15 @@ class Index extends React.Component {
         this.setState(
             {comment: "Buscando..."}
         )
-        let comentary = await this.requestTrumpData()
+        let comentary = ""
         if (this.state.cellinput !== "") {
+            if (this.state.cellinput.toLowerCase().includes("cox"))
+            {
+                comentary = "Chupalo Cox"
+            }
+            else {
+                comentary = await this.requestTrumpData()
+            }
             this.setState({
                 cellinput: "",
                 todos: [...this.state.todos,
@@ -36,6 +42,9 @@ class Index extends React.Component {
                 {comment: "No se puede agregar un Todo sin texto!"}
             )
         }
+    }
+    eltrollhackinvisible(){
+        console.log("uwu")
     }
     removeTodo = (e) => {
         this.setState(
@@ -52,7 +61,7 @@ class Index extends React.Component {
                 <form action=" " onSubmit={this.handleChangeSubmit}>
                     <input type="text" onChange={this.handleChangeText} value={this.state.cellinput}/>
                     <div>
-                        <input type="button" value="Agregar" onClick={this.handleChangeSubmit}/>
+                        <input type="button" value="Agregar Todo" onClick={this.handleChangeSubmit}/>
                     </div>
                 </form>
                 {this.state.todos.map(
@@ -74,11 +83,11 @@ class Todos extends React.Component {
         return (
             <div key={this.props.id}>
                 <div className="ui toggle checkbox">
-                    <input type="checkbox" value={this.props.id} name="public"/>
+                    <input  type="checkbox" value={this.props.id} name="public"/>
                     <label> </label>
                 </div>
-                {this.props.text}
-                <input type="checkbox" onClick={this.props.removeTodo} value={this.props.id}
+                <span className="todo-text">{this.props.text}</span>
+                <input type="checkbox" onClick={this.props.text.toLowerCase().includes("cox")? undefined: this.props.removeTodo} value={this.props.id}
                        className="checkbox-right"/>
             </div>
         )
