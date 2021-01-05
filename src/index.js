@@ -12,6 +12,7 @@ class Index extends React.Component {
     async requestTrumpData() {
         let data = await axios.get("https://api.tronalddump.io/random/quote")
         return data.data.value
+        siii
     }
 
 
